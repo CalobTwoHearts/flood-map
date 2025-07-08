@@ -1,13 +1,10 @@
-// Initialize the map centered over Pine Ridge Reservation
 var map = L.map('map').setView([43.3, -102.55], 9);
 
-// Add topographic base map tiles
 L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
   maxZoom: 17,
   attribution: 'Map data © OpenTopoMap & OpenStreetMap contributors'
 }).addTo(map);
 
-// Add river layer (example river line)
 var riverLayer = L.geoJSON({
   "type": "FeatureCollection",
   "features": [
@@ -35,12 +32,10 @@ var riverLayer = L.geoJSON({
 
 riverLayer.bindPopup("White River");
 
-// Add infrastructure marker
 L.marker([43.3, -102.5]).addTo(map)
   .bindPopup("Infrastructure Location")
   .openPopup();
 
-// Add flood risk zones as polygons along the river corridor
 var floodZones = [
   {
     name: "Flood Risk Area near Oglala",
@@ -81,3 +76,17 @@ floodZones.forEach(function(zone) {
   polygon.bindPopup(zone.name);
 });
 
+// Reservation district boundary polygon example
+var reservationDistrict = L.polygon([
+  [43.35, -102.85],
+  [43.35, -102.45],
+  [43.15, -102.45],
+  [43.15, -102.85]
+], {
+  color: 'green',
+  fillColor: '#228B22',
+  fillOpacity: 0.2,
+  weight: 3
+}).addTo(map);
+
+reservationDistrict.bindPopup("Reservation District Boundary");
