@@ -2,7 +2,8 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
 }
+
 #map {
-  height: 90vh;
+  height: 90vh;   /* This makes the map fill 90% of the viewport height */
   width: 100%;
 }
