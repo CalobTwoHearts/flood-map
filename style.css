@@ -4,6 +4,6 @@ body {
 }
 
 #map {
-  height: 90vh;   /* This makes the map fill 90% of the viewport height */
+  height: 90vh;
   width: 100%;
 }
