@@ -7,7 +7,7 @@ L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
   attribution: 'Map data © OpenTopoMap & OpenStreetMap contributors'
 }).addTo(map);
 
-// River (White River)
+// --- White River (symbolic) ---
 var riverLayer = L.geoJSON({
   "type": "FeatureCollection",
   "features": [
@@ -32,26 +32,12 @@ var riverLayer = L.geoJSON({
     weight: 3
   }
 }).addTo(map);
-
 riverLayer.bindPopup("White River");
 
-// Infrastructure/Home markers (at-risk locations)
-var homesAtRisk = [
-  { name: "Oglala Town Center", coords: [43.19, -102.75] },
-  { name: "Porcupine Community", coords: [43.17, -102.58] },
-  { name: "Badlands Area Home", coords: [43.02, -102.28] }
-];
-
-homesAtRisk.forEach(function(home) {
-  L.marker(home.coords)
-    .addTo(map)
-    .bindPopup("<b>" + home.name + "</b><br>Potential flood risk area");
-});
-
-// Flood risk zones
+// --- Flood Risk Zones (custom rectangles near towns) ---
 var floodZones = [
   {
-    name: "Flood Risk Area near Oglala",
+    name: "Flood Risk: Oglala",
     coords: [
       [43.18, -102.8],
       [43.18, -102.75],
@@ -60,16 +46,16 @@ var floodZones = [
     ]
   },
   {
-    name: "Flood Risk Area near Porcupine",
+    name: "Flood Risk: Pine Ridge",
     coords: [
-      [43.15, -102.6],
-      [43.15, -102.55],
-      [43.19, -102.55],
-      [43.19, -102.6]
+      [43.00, -102.65],
+      [43.00, -102.60],
+      [43.04, -102.60],
+      [43.04, -102.65]
     ]
   },
   {
-    name: "Flood Risk Area near Badlands",
+    name: "Flood Risk: Badlands",
     coords: [
       [43.0, -102.3],
       [43.0, -102.25],
@@ -85,37 +71,58 @@ floodZones.forEach(function(zone) {
     fillColor: '#f03',
     fillOpacity: 0.5
   }).addTo(map);
-
   polygon.bindPopup(zone.name);
 });
 
-// Reservation district boundary polygon (example)
-var reservationDistrict = L.polygon([
-  [43.35, -102.85],
-  [43.35, -102.45],
-  [43.15, -102.45],
-  [43.15, -102.85]
-], {
-  color: 'green',
-  fillColor: '#228B22',
-  fillOpacity: 0.2,
-  weight: 3
-}).addTo(map);
+// --- Town Markers (with tooltips) ---
+var towns = [
+  { name: "Oglala", coords: [43.19, -102.75] },
+  { name: "Kyle", coords: [43.42, -102.18] },
+  { name: "Porcupine", coords: [43.19, -102.53] },
+  { name: "Pine Ridge", coords: [43.02, -102.58] }
+];
 
-reservationDistrict.bindPopup("Reservation District Boundary");
+towns.forEach(function(town) {
+  L.marker(town.coords, {
+    icon: L.icon({
+      iconUrl: 'https://cdn-icons-png.flaticon.com/512/252/252025.png',
+      iconSize: [24, 24]
+    })
+  })
+    .addTo(map)
+    .bindPopup("<b>Town of " + town.name + "</b><br>Flood vulnerability under review.")
+    .bindTooltip(town.name, {
+      permanent: true,
+      direction: 'top',
+      className: 'town-label'
+    });
+});
 
-// Legend
-var legend = L.control({position: 'bottomright'});
+// --- Reservation Boundary from GIS Server ---
+fetch("https://sdgis.sd.gov/host/rest/services/Hosted/Boundary_ReservationBoundariesAndTribalLands/FeatureServer/0/query?where=NAME%3D'Pine+Ridge+Reservation'&f=geojson")
+  .then(response => response.json())
+  .then(data => {
+    L.geoJSON(data, {
+      style: {
+        color: '#8800cc',
+        fillColor: '#cc99ff',
+        fillOpacity: 0.3,
+        weight: 2
+      }
+    }).addTo(map).bindPopup("Pine Ridge Reservation Boundary");
+  });
 
+// --- Legend ---
+var legend = L.control({ position: 'bottomright' });
 legend.onAdd = function (map) {
   var div = L.DomUtil.create('div', 'info legend');
   div.innerHTML += "<h4>Legend</h4>";
-  div.innerHTML += '<i style="background: red"></i> Flood Risk Zone<br>';
+  div.innerHTML += '<i style="background: red"></i> Flood Risk Zones<br>';
   div.innerHTML += '<i style="background: #0077cc"></i> River<br>';
-  div.innerHTML += '<i style="background: green"></i> Reservation Boundary<br>';
-  div.innerHTML += '<svg width="18" height="18"><circle cx="9" cy="9" r="7" fill="black"/></svg> Infrastructure/Home<br>';
+  div.innerHTML += '<i style="background: #cc99ff"></i> Reservation Boundary<br>';
+  div.innerHTML += '<svg width="18" height="18"><circle cx="9" cy="9" r="7" fill="black"/></svg> Town Marker<br>';
   return div;
 };
-
 legend.addTo(map);
+
 
