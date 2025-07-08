@@ -1,13 +1,10 @@
 // Center over Pine Ridge Reservation
 var map = L.map('map').setView([43.3, -102.55], 9);
 
-// Base map from OpenStreetMap
+// Topographic base map
 L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
   maxZoom: 17,
   attribution: 'Map data © OpenTopoMap & OpenStreetMap contributors'
-}).addTo(map);
-
-  attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
 // Dummy polygon to show "flood risk zone"
