@@ -1,0 +1,47 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "Highway 44", "type": "highway" },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-102.95, 43.22],
+          [-102.90, 43.23],
+          [-102.85, 43.24],
+          [-102.80, 43.25],
+          [-102.75, 43.26],
+          [-102.70, 43.28],
+          [-102.65, 43.30],
+          [-102.60, 43.32],
+          [-102.55, 43.34]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "BIA Route 2", "type": "road" },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-102.90, 43.20],
+          [-102.85, 43.22],
+          [-102.80, 43.24]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Main Road Near Kyle", "type": "road" },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-102.55, 43.38],
+          [-102.53, 43.39],
+          [-102.50, 43.40]
+        ]
+      }
+    }
+  ]
+}
