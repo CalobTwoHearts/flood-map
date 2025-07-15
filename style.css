@@ -1,3 +1,4 @@
+/* Reset & base */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -12,6 +13,7 @@ h2 {
   color: white;
 }
 
+/* Map container */
 #map {
   height: 90vh;
   width: 100%;
@@ -50,5 +52,22 @@ h2 {
   padding: 2px 4px;
   border-radius: 3px;
   box-shadow: 0 0 2px rgba(0,0,0,0.3);
+}
+
+/* River label tooltips */
+.leaflet-tooltip.river-label {
+  font-size: 14px;
+  font-style: italic;
+  color: #004488;
+  text-shadow: 1px 1px 2px white;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* Highlighted flood risk polygons */
+.leaflet-interactive {
+  cursor: pointer;
 }
 
