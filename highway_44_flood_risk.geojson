@@ -1,0 +1,1 @@
+{"type": "FeatureCollection", "features": [{"type": "Feature", "properties": {"name": "Highway 44 Flood Risk Zone", "type": "road", "risk_level": "high", "notes": "Prone to flooding near the White River crossing"}, "geometry": {"type": "LineString", "coordinates": [[-102.009, 43.7], [-101.986, 43.69], [-101.96, 43.68]]}}]}
