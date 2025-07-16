@@ -7,20 +7,34 @@ L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
   attribution: 'Map data © OpenTopoMap & OpenStreetMap contributors'
 }).addTo(map);
 
-// --- Elevation Contours (USGS WMS) ---
-L.tileLayer.wms("https://carto.nationalmap.gov/arcgis/services/contours/MapServer/WMSServer", {
-  layers: 'Contours US 100 Foot Lines',
+// --- USGS Hillshade Overlay for terrain shading ---
+L.tileLayer.wms('https://basemap.nationalmap.gov/arcgis/services/USGSShadedReliefOnly/MapServer/WMSServer', {
+  layers: '0',
   format: 'image/png',
   transparent: true,
-  attribution: 'USGS Elevation Contours'
+  attribution: 'USGS Hillshade',
+  opacity: 0.5,
+  zIndex: 100
+}).addTo(map);
+
+// --- Elevation Contours (USGS WMS) ---
+L.tileLayer.wms('https://basemap.nationalmap.gov/arcgis/services/Contours/MapServer/WMSServer', {
+  layers: '0',
+  format: 'image/png',
+  transparent: true,
+  attribution: 'USGS Elevation Contours',
+  opacity: 0.6,
+  zIndex: 110
 }).addTo(map);
 
 // --- Streamflow Data (USGS WaterWatch WMS) ---
-L.tileLayer.wms("https://waterwatch.usgs.gov/arcgis/services/Streamflow/MapServer/WMSServer", {
-  layers: 'Streamflow',
+L.tileLayer.wms('https://waterwatch.usgs.gov/arcgis/services/Streamflow/MapServer/WMSServer', {
+  layers: '1',
   format: 'image/png',
   transparent: true,
-  attribution: 'USGS Streamflow Data'
+  attribution: 'USGS Streamflow Data',
+  opacity: 0.6,
+  zIndex: 120
 }).addTo(map);
 
 // --- Historical Flood Events (USGS Flood Event Viewer GeoJSON) ---
@@ -48,6 +62,9 @@ fetch('https://stn.wim.usgs.gov/FEV/api/Events/GeoJson?bbox=-102.85,43.10,-102.3
         });
       }
     }).addTo(map);
+  })
+  .catch(error => {
+    console.error("Failed to load flood events GeoJSON:", error);
   });
 
 // --- Town Markers ---
@@ -85,6 +102,9 @@ fetch("https://sdgis.sd.gov/host/rest/services/Hosted/Boundary_ReservationBounda
         weight: 2
       }
     }).addTo(map).bindPopup("Pine Ridge Reservation Boundary");
+  })
+  .catch(error => {
+    console.error("Failed to load reservation boundary:", error);
   });
 
 // --- Legend ---
