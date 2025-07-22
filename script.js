@@ -70,8 +70,8 @@ fetch('https://stn.wim.usgs.gov/FEV/api/Events/GeoJson?bbox=-102.85,43.10,-102.3
 // --- Town Markers ---
 var towns = [
   { name: "Oglala", coords: [43.19, -102.75] },
-  { name: "Manderson", coords: [43.23, -102.56] },
-  { name: "Wounded Knee", coords: [43.22, -102.39] }
+  { name: "Manderson", coords: [43.2352, -102.4636] },
+  { name: "Wounded Knee", coords: [43.1454, -102.3673] }
 ];
 
 towns.forEach(function(town) {
