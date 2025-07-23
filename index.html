@@ -131,8 +131,8 @@
     // Town Markers
     var towns = [
       { name: "Oglala", coords: [43.19, -102.75] },
-      { name: "Manderson", coords: [43.23, -102.56] },
-      { name: "Wounded Knee", coords: [43.22, -102.39] }
+      { name: "Manderson", coords: [ 43.2337,-102.4616] },
+      { name: "Wounded Knee", coords: [43.1443,-102.3554] }
     ];
 
     towns.forEach(function(town) {
@@ -172,7 +172,6 @@
       div.innerHTML += "<h4>Legend</h4>";
       div.innerHTML += '<i style="background: #4477ff"></i> Elevation Contours<br>';
       div.innerHTML += '<i style="background: #ff7800"></i> Historical Flood Events<br>';
-      div.innerHTML += '<i style="background: #0080ff"></i> Streamflow Data<br>';
       div.innerHTML += '<i style="background: #cc99ff"></i> Reservation Boundary<br>';
       div.innerHTML += '<svg width="18" height="18"><circle cx="9" cy="9" r="7" fill="black"/></svg> Town Marker<br>';
       return div;
