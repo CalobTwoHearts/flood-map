@@ -81,6 +81,11 @@
       attribution: 'Map data © OpenTopoMap & OpenStreetMap contributors'
     }).addTo(map);
 
+    // Add image overlay for Pine Ridge and Rosebud Reservations
+    var imageUrl = 'images/pine_ridge_rosebud_overlay.png';  // path to your renamed image
+    var imageBounds = [[42.75, -104.1], [43.7, -101.9]]; // SW and NE corners covering both reservations
+    L.imageOverlay(imageUrl, imageBounds).addTo(map);
+
     // Elevation Contours (USGS WMS)
     L.tileLayer.wms("https://carto.nationalmap.gov/arcgis/services/contours/MapServer/WMSServer", {
       layers: 'Contours US 100 Foot Lines',
@@ -184,3 +189,4 @@
   </script>
 </body>
 </html>
+
